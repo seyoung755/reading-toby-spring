@@ -65,6 +65,7 @@
   
 🚩 Issue / PR 생성 후 chapter 별로 label 달기!
 
+![image](https://user-images.githubusercontent.com/50660684/157425414-2efdb15c-6e81-4373-a7c3-c2e2ef7ba74e.png)
 
 
 
