@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class NUserDao {
+public class SimpleConnectionMaker {
 
-    public Connection getConnection() throws SQLException {
+    public Connection makeNewConnection() throws SQLException {
         Connection c = DriverManager.getConnection("jdbc:mysql://localhost/toby", "root", "950104elql!");
         return c;
     }
