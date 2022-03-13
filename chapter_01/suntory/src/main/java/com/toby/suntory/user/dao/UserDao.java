@@ -2,9 +2,12 @@ package com.toby.suntory.user.dao;
 
 import com.toby.suntory.user.domain.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class UserDao {
+public abstract class UserDao {
 
     public void add(User user) throws SQLException {
         Connection c = getConnection();
@@ -43,16 +46,13 @@ public class UserDao {
         return user;
     }
 
-    private Connection getConnection() throws SQLException {
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/toby", "root", "950104elql!");
-        return c;
-    }
+    public abstract Connection getConnection() throws SQLException;
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        UserDao dao = new UserDao();
+        UserDao dao = new NUserDao();
 
         User user = new User();
-        user.setId("suntory");
+        user.setId("suntory2");
         user.setName("김세영");
         user.setPassword("pass");
 
