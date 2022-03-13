@@ -10,8 +10,8 @@ import java.sql.SQLException;
 public class UserDao {
     private ConnectionMaker connectionMaker;
 
-    public UserDao() {
-        this.connectionMaker = new DConnetionMaker();
+    public UserDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
     }
 
     public void add(User user) throws SQLException {
@@ -52,11 +52,11 @@ public class UserDao {
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        SimpleConnectionMaker simpleConnectionMaker = new SimpleConnectionMaker();
-        UserDao dao = new UserDao();
+        ConnectionMaker connectionMaker = new NConnectionMaker();
+        UserDao dao = new UserDao(connectionMaker);
 
         User user = new User();
-        user.setId("suntory3");
+        user.setId("suntory5");
         user.setName("김세영");
         user.setPassword("pass");
 
