@@ -69,5 +69,8 @@ public class UserDao {
         User user2 = dao.get(user.getId());
         System.out.println(user2.getName());
         System.out.println(user2.getPassword());
+
+//        CountingConnectionMaker ccm = context.getBean("connectionMaker", CountingConnectionMaker.class);
+//        System.out.println("ccm.getCounter() = " + ccm.getCounter());
     }
 }
