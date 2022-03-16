@@ -1,6 +1,8 @@
 package com.toby.suntory.user.dao;
 
 import com.toby.suntory.user.domain.User;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,10 +54,11 @@ public class UserDao {
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        UserDao dao = new DaoFactory().userDao();
+        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
 
+        UserDao dao = context.getBean("userDao", UserDao.class);
         User user = new User();
-        user.setId("suntory5");
+        user.setId("suntory10");
         user.setName("김세영");
         user.setPassword("pass");
 
