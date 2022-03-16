@@ -4,20 +4,21 @@ import com.toby.suntory.user.domain.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDao {
-    private ConnectionMaker connectionMaker;
+    private DataSource dataSource;
 
-    public UserDao(ConnectionMaker connectionMaker) {
-        this.connectionMaker = connectionMaker;
+    public UserDao(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     public void add(User user) throws SQLException {
-        Connection c = connectionMaker.makeConnection();
+        Connection c = dataSource.getConnection();
 
         PreparedStatement ps = c.prepareStatement(
                 "insert into user(id, name, password) values (?, ?, ?)");
@@ -32,7 +33,7 @@ public class UserDao {
     }
 
     public User get(String id) throws SQLException {
-        Connection c = connectionMaker.makeConnection();
+        Connection c = dataSource.getConnection();
 
         PreparedStatement ps = c.prepareStatement(
                 "select * from user where id = ?");
@@ -58,7 +59,7 @@ public class UserDao {
 
         UserDao dao = context.getBean("userDao", UserDao.class);
         User user = new User();
-        user.setId("suntory10");
+        user.setId("suntory20");
         user.setName("김세영");
         user.setPassword("pass");
 
