@@ -1,8 +1,6 @@
 package com.toby.suntory.user.dao;
 
 import com.toby.suntory.user.domain.User;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -54,24 +52,29 @@ public class UserDao {
         return user;
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+    public void deleteAll() throws SQLException {
+        Connection c = dataSource.getConnection();
 
-        UserDao dao = context.getBean("userDao", UserDao.class);
-        User user = new User();
-        user.setId("suntory20");
-        user.setName("김세영");
-        user.setPassword("pass");
+        PreparedStatement ps = c.prepareStatement("DELETE FROM user");
+        ps.executeUpdate();
 
-        dao.add(user);
+        ps.close();
+        c.close();
+    }
 
-        System.out.println(user.getId() + " 등록 성공");
+    public int getCount() throws SQLException {
+        Connection c = dataSource.getConnection();
 
-        User user2 = dao.get(user.getId());
-        System.out.println(user2.getName());
-        System.out.println(user2.getPassword());
+        PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM user");
 
-//        CountingConnectionMaker ccm = context.getBean("connectionMaker", CountingConnectionMaker.class);
-//        System.out.println("ccm.getCounter() = " + ccm.getCounter());
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        int count = rs.getInt(1);
+
+        rs.close();
+        ps.close();
+        c.close();
+
+        return count;
     }
 }
