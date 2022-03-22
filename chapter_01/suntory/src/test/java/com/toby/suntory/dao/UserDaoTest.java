@@ -16,18 +16,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserDaoTest {
     private UserDao dao;
+    private User user1;
+    private User user2;
+    private User user3;
 
     @BeforeEach
     void setUp() {
         ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+        user1 = new User("user1", "유저1", "pw1");
+        user2 = new User("user2", "유저2", "pw2");
+        user3 = new User("user3", "유저3", "pw3");
         dao = context.getBean("userDao", UserDao.class);
     }
 
     @Test
     void addAndGet() throws SQLException {
-        User user1 = new User("suntory", "산토리", "springno1");
-        User user2 = new User("leegw700", "이길원", "springno2");
-
         dao.deleteAll();
         assertThat(dao.getCount()).isZero();
 
@@ -43,10 +46,6 @@ class UserDaoTest {
 
     @Test
     void count() throws SQLException {
-        User user1 = new User("user1", "유저1", "pw1");
-        User user2 = new User("user2", "유저2", "pw2");
-        User user3 = new User("user3", "유저3", "pw3");
-
         dao.deleteAll();
         assertThat(dao.getCount()).isZero();
 
