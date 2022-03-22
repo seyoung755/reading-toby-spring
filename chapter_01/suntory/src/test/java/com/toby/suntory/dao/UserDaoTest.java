@@ -3,6 +3,7 @@ package com.toby.suntory.dao;
 import com.toby.suntory.user.dao.DaoFactory;
 import com.toby.suntory.user.dao.UserDao;
 import com.toby.suntory.user.domain.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,12 +15,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserDaoTest {
+    private UserDao dao;
+
+    @BeforeEach
+    void setUp() {
+        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+        dao = context.getBean("userDao", UserDao.class);
+    }
 
     @Test
     void addAndGet() throws SQLException {
-        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-
-        UserDao dao = context.getBean("userDao", UserDao.class);
         User user1 = new User("suntory", "산토리", "springno1");
         User user2 = new User("leegw700", "이길원", "springno2");
 
@@ -38,9 +43,6 @@ class UserDaoTest {
 
     @Test
     void count() throws SQLException {
-        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-
-        UserDao dao = context.getBean("userDao", UserDao.class);
         User user1 = new User("user1", "유저1", "pw1");
         User user2 = new User("user2", "유저2", "pw2");
         User user3 = new User("user3", "유저3", "pw3");
@@ -60,10 +62,6 @@ class UserDaoTest {
 
     @Test
     void getUserFailure() throws SQLException {
-        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-
-        UserDao dao = context.getBean("userDao", UserDao.class);
-
         dao.deleteAll();
 
         assertThat(dao.getCount()).isZero();
