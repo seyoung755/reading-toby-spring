@@ -8,9 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.sql.DataSource;
 import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {DaoFactory.class})
+@DirtiesContext // 테스트 코드에서 애플리케이션의 컨텍스트를 수정하겠다는 표시
 class UserDaoTest {
     // 스프링이 context를 만들어 주입한다. 각 test 오브젝트가 동일한 context를 사용한다.
     @Autowired
@@ -31,6 +35,8 @@ class UserDaoTest {
         user1 = new User("user1", "유저1", "pw1");
         user2 = new User("user2", "유저2", "pw2");
         user3 = new User("user3", "유저3", "pw3");
+        DataSource dataSource = new SingleConnectionDataSource("jdbc:mysql://localhost/toby", "root", "950104elql!", true);
+        dao.setDataSource(dataSource);
     }
 
     @Test
