@@ -1,0 +1,17 @@
+
+d
+java:S2095L"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ô¾Ÿ
+d
+java:S2095B"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ä´²c
+c
+java:S2095@"HUse try-with-resources or close this "Connection" in a "finally" clause.(Â€¨„þÿÿÿÿ
+d
+java:S2095)"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(”ëªq
+c
+java:S2095'"HUse try-with-resources or close this "Connection" in a "finally" clause.(Â€¨„þÿÿÿÿ
+c
+java:S2095"HUse try-with-resources or close this "Connection" in a "finally" clause.(Â€¨„þÿÿÿÿ
+c
+java:S2095J"HUse try-with-resources or close this "Connection" in a "finally" clause.(Â€¨„þÿÿÿÿ
+d
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(”ëªq
