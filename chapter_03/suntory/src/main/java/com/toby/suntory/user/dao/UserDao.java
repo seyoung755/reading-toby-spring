@@ -61,14 +61,8 @@ public class UserDao {
     }
 
     public void deleteAll() throws SQLException {
-
-        Connection c = dataSource.getConnection();
-
-        PreparedStatement ps = c.prepareStatement("DELETE FROM user");
-        ps.executeUpdate();
-
-        ps.close();
-        c.close();
+        StatementStrategy strategy = new DeleteAllStatement();
+        jdbcContextWithStatementStrategy(strategy);
     }
 
     public int getCount() throws SQLException {
@@ -85,5 +79,11 @@ public class UserDao {
         c.close();
 
         return count;
+    }
+
+    public void jdbcContextWithStatementStrategy(StatementStrategy stmt) throws SQLException {
+        try (Connection c = dataSource.getConnection(); PreparedStatement ps = stmt.makePreparedStatement(c)) {
+            ps.executeUpdate();
+        }
     }
 }
