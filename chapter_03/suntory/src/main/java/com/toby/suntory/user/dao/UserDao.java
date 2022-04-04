@@ -20,14 +20,8 @@ public class UserDao {
         this.dataSource = dataSource;
     }
 
-    public void add(User user) throws SQLException {
+    public void add(final User user) throws SQLException {
         class AddStatement implements StatementStrategy {
-            User user;
-
-            public AddStatement(User user) {
-                this.user = user;
-            }
-
             @Override
             public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
                 PreparedStatement ps = c.prepareStatement("insert into user(id, name, password) values (?,?,?)");
@@ -39,7 +33,7 @@ public class UserDao {
                 return ps;
             }
         }
-        StatementStrategy strategy = new AddStatement(user);
+        StatementStrategy strategy = new AddStatement();
         jdbcContextWithStatementStrategy(strategy);
     }
 
