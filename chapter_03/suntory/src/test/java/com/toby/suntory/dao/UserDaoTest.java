@@ -27,8 +27,6 @@ class UserDaoTest {
     // 스프링이 context를 만들어 주입한다. 각 test 오브젝트가 동일한 context를 사용한다.
     @Autowired
     private UserDao dao;
-    @Autowired
-    private JdbcContext jdbcContext;
     private User user1;
     private User user2;
     private User user3;
@@ -39,8 +37,7 @@ class UserDaoTest {
         user2 = new User("user2", "유저2", "pw2");
         user3 = new User("user3", "유저3", "pw3");
         DataSource dataSource = new SingleConnectionDataSource("jdbc:mysql://localhost/toby", "root", "950104elql!", true);
-        dao.setDataSource(dataSource);
-        dao.setJdbcContext(jdbcContext);
+        dao = new UserDao(dataSource);
     }
 
     @Test
