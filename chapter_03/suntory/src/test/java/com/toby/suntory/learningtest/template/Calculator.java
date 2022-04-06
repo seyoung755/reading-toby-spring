@@ -25,11 +25,11 @@ public class Calculator {
         }
     }
 
-    public int lineReadTemplate(String path, LineCallback callback, int initVal) throws IOException {
+    public <T> T lineReadTemplate(String path, LineCallback<T> callback, T initVal) throws IOException {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(path));
-            int res = initVal;
+            T res = initVal;
             String line = null;
             while ((line = br.readLine()) != null) {
                 res = callback.doSomethingWithLine(line, res);
@@ -49,10 +49,10 @@ public class Calculator {
     }
 
     public int calcSum(String path) throws IOException {
-        LineCallback sumCallback =
-                new LineCallback() {
+        LineCallback<Integer> sumCallback =
+                new LineCallback<>() {
                     @Override
-                    public int doSomethingWithLine(String line, int value) {
+                    public Integer doSomethingWithLine(String line, Integer value) {
                         return Integer.parseInt(line) + value;
                     }
                 };
@@ -60,13 +60,24 @@ public class Calculator {
     }
 
     public int calcMultiply(String path) throws IOException {
-        LineCallback multiplyCallback =
-                new LineCallback() {
+        LineCallback<Integer> multiplyCallback =
+                new LineCallback<>() {
                     @Override
-                    public int doSomethingWithLine(String line, int value) {
+                    public Integer doSomethingWithLine(String line, Integer value) {
                         return Integer.parseInt(line) * value;
                     }
                 };
         return lineReadTemplate(path, multiplyCallback, 1);
+    }
+
+    public String concatenate(String path) throws IOException {
+        LineCallback<String> concatenateCallback =
+                new LineCallback<>() {
+                    @Override
+                    public String doSomethingWithLine(String line, String value) {
+                        return value + line;
+                    }
+                };
+        return lineReadTemplate(path, concatenateCallback, "");
     }
 }

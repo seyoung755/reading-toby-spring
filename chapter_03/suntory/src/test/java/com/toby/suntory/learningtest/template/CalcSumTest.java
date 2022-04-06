@@ -18,12 +18,17 @@ class CalcSumTest {
     }
 
     @Test
-    public void sumOfNumbers() throws IOException {
+    void sumOfNumbers() throws IOException {
         assertThat(calculator.calcSum(path)).isEqualTo(10);
     }
 
     @Test
-    public void multiplyOfNumbers() throws IOException {
+    void multiplyOfNumbers() throws IOException {
         assertThat(calculator.calcMultiply(path)).isEqualTo(24);
+    }
+
+    @Test
+    void concatenateStrings() throws IOException {
+        assertThat(calculator.concatenate(path)).isEqualTo("1234");
     }
 }
